@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BooksDemo</string>
+
+    <string name="base_url">https://gutendex.com/</string>
+
+    <string name="title">Title</string>
+    <string name="subject">Subject</string>
+
+
+</resources>
