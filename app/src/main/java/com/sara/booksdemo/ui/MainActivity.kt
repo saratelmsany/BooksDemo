@@ -7,6 +7,7 @@ import android.widget.AbsListView
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,18 +15,20 @@ import com.sara.booksdemo.ApiInterface
 import com.sara.booksdemo.MainRepository
 import com.sara.booksdemo.MyViewModelFactory
 import com.sara.booksdemo.R
-import com.sara.booksdemo.database.getDatabase
 import com.sara.booksdemo.databinding.ActivityMainBinding
 import com.sara.booksdemo.pojo.BookItem
 import com.sara.booksdemo.viewModel.BookViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit  var booksGridView : GridView
     private lateinit var mBinding : ActivityMainBinding
-    private lateinit var bookViewModel : BookViewModel
+    private  val bookViewModel : BookViewModel by viewModels()
     private var booksAdapter : BooksAdapter? = null
+
+  //  lateinit var booksAdapter : BooksAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +39,12 @@ class MainActivity : AppCompatActivity() {
         //   setContentView(R.layout.activity_main)
         booksGridView = findViewById(R.id.books_grid)
 
-        val apiInterface = ApiInterface.getInstance()
-        val mainRepository = MainRepository(apiInterface, getDatabase(this))
+//        val apiInterface = ApiInterface.getInstance()
+//        val mainRepository = MainRepository(apiInterface, getDatabase(this))
 
-        bookViewModel =
-            ViewModelProvider(this@MainActivity, MyViewModelFactory(mainRepository)).
-            get(BookViewModel::class.java)
+//        bookViewModel =
+//            ViewModelProvider(this@MainActivity, MyViewModelFactory(mainRepository)).
+//            get(BookViewModel::class.java)
 
         bookViewModel.booksList.observe(this,
             {
@@ -95,10 +98,7 @@ class MainActivity : AppCompatActivity() {
                 firstVisibleItem: Int,
                 visibleItemCount: Int,
                 totalItemCount: Int
-            ) {
-
-            }
-
+            ) {}
             override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
 
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {

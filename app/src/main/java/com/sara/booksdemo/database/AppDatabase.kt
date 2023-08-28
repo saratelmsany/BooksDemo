@@ -25,19 +25,19 @@ val MIGRATION_1_2: Migration = object : Migration(1, 2) {
         )
     }
 }
-    private lateinit var INSTANCE: AppDatabase
-
-    fun getDatabase(context: Context): AppDatabase {
-        synchronized(AppDatabase::class.java) {
-            if (!::INSTANCE.isInitialized) {
-                INSTANCE = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "books-database")
-        //            .addMigrations(MIGRATION_1_2)
-                    .build()
-
-            }
-        }
-        return INSTANCE
-    }
+//    private lateinit var INSTANCE: AppDatabase
+//
+//    fun getDatabase(context: Context): AppDatabase {
+//        synchronized(AppDatabase::class.java) {
+//            if (!::INSTANCE.isInitialized) {
+//                INSTANCE = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    AppDatabase::class.java,
+//                    "books-database")
+//        //            .addMigrations(MIGRATION_1_2)
+//                    .build()
+//
+//            }
+//        }
+//        return INSTANCE
+//    }

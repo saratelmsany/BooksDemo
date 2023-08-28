@@ -15,8 +15,6 @@ interface BookDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(books: List<Book>)
 
-    @Delete
-    fun delete(book: Book)
 
 }
 

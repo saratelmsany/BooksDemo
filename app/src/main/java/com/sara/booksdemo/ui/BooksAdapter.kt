@@ -12,11 +12,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sara.booksdemo.R
 import com.sara.booksdemo.pojo.BookItem
+import dagger.Provides
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class BooksAdapter (
+class BooksAdapter  constructor (
 
-    private val context: Context,
-    private var books: List<BookItem>
+     val context: Context,
+     private var books: List<BookItem>
     ) :
 
     BaseAdapter() {
