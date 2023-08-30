@@ -1,11 +1,11 @@
-package com.sara.booksdemo.pojo
+package com.sara.booksdemo.allBooks.pojo
 
-import androidx.room.Embedded
+
 import com.google.gson.annotations.SerializedName
-import javax.inject.Inject
+import java.io.Serializable
 
 data class BookCover (
     @SerializedName("image/jpeg")
     val image : String,
 
-)
+): Serializable

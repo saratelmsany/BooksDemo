@@ -1,9 +1,7 @@
-package com.sara.booksdemo.database
+package com.sara.booksdemo.allBooks.database
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.sara.booksdemo.pojo.BookItem
 
 @Dao
 interface BookDAO {

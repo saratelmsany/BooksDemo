@@ -1,4 +1,4 @@
-package com.sara.booksdemo.ui
+package com.sara.booksdemo.allBooks.ui
 
 import android.content.Context
 import android.util.Log
@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sara.booksdemo.R
-import com.sara.booksdemo.pojo.BookItem
+import com.sara.booksdemo.allBooks.pojo.BookItem
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -54,12 +54,13 @@ var convertView = convertView
         }
         imageView = convertView!!.findViewById(R.id.cover_img)
         textView = convertView.findViewById(R.id.title_tv)
-          //  Log.v("image",books[position].formats.toString())
             textView.text = books[position].title
             Glide.with(context).load(books[position].formats.image).diskCacheStrategy(
                 DiskCacheStrategy.ALL).thumbnail(0.5f).into(imageView)
 
-        return convertView
+          //  Glide.with(context).load(books[position].formats.image).into(imageView)
+
+            return convertView
     }
 
     fun changeModelList(booksList: List<BookItem>) {

@@ -1,7 +1,8 @@
-package com.sara.booksdemo.database
+package com.sara.booksdemo.allBooks.database
 
 import android.content.Context
 import androidx.room.Room
+import com.sara.booksdemo.allBooks.database.BookDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,12 +14,14 @@ import dagger.hilt.components.SingletonComponent
 object RoomModule {
 
     @Provides
-    fun provideBooksDatabase(@ApplicationContext context :Context): AppDatabase{
-        return Room.databaseBuilder(context,AppDatabase::class.java,"books-database").build()
+    fun provideBooksDatabase(@ApplicationContext context :Context): AppDatabase {
+        return Room
+            .databaseBuilder(context, AppDatabase::class.java,"books-database")
+            .build()
     }
 
     @Provides
-    fun provideBooksDao(booksDatabase: AppDatabase): BookDAO{
+    fun provideBooksDao(booksDatabase: AppDatabase): BookDAO {
         return booksDatabase.bookDao()
     }
 }

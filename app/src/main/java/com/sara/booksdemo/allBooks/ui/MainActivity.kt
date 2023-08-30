@@ -1,5 +1,6 @@
-package com.sara.booksdemo.ui
+package com.sara.booksdemo.allBooks.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,14 +11,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.sara.booksdemo.ApiInterface
-import com.sara.booksdemo.MainRepository
-import com.sara.booksdemo.MyViewModelFactory
 import com.sara.booksdemo.R
 import com.sara.booksdemo.databinding.ActivityMainBinding
-import com.sara.booksdemo.pojo.BookItem
-import com.sara.booksdemo.viewModel.BookViewModel
+import com.sara.booksdemo.allBooks.pojo.BookItem
+import com.sara.booksdemo.allBooks.ui.BooksAdapter
+import com.sara.booksdemo.allBooks.viewModel.BookViewModel
+import com.sara.booksdemo.bookDetails.DetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private  val bookViewModel : BookViewModel by viewModels()
     private var booksAdapter : BooksAdapter? = null
 
-  //  lateinit var booksAdapter : BooksAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        //   setContentView(R.layout.activity_main)
         booksGridView = findViewById(R.id.books_grid)
-
-//        val apiInterface = ApiInterface.getInstance()
-//        val mainRepository = MainRepository(apiInterface, getDatabase(this))
-
-//        bookViewModel =
-//            ViewModelProvider(this@MainActivity, MyViewModelFactory(mainRepository)).
-//            get(BookViewModel::class.java)
 
         bookViewModel.booksList.observe(this,
             {
@@ -79,15 +69,16 @@ class MainActivity : AppCompatActivity() {
             booksGridView.adapter = booksAdapter
             booksGridView.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ ->
-                    Toast.makeText(
-                        applicationContext, booksList[+position].title,
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    Log.v("bookItem",booksList[position].toString())
+                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+                    intent.putExtra("book", booksList[position])
+                    startActivity(intent)
                 }
         } else {
             Log.v("data changed", booksList.size.toString())
             booksAdapter!!.changeModelList(booksList)
-            booksGridView.smoothScrollByOffset(1)
+          //  booksGridView.smoothScrollByOffset(1)
         }
     }
 
@@ -118,58 +109,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-
-
-
-//    private suspend fun retrofitClient() {
-//      //  GlobalScope.launch(Dispatchers.IO) {
-//            val baseUrl = getString(R.string.base_url)
-//            val api =
-//                Retrofit.Builder()
-//                    .baseUrl(baseUrl)
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build()
-//                    .create(ApiInterface::class.java)
-//
-//        GlobalScope.launch(Dispatchers.IO){
-//            val response = api.getBooks()
-//            if (response.isSuccessful){
-//                Log.v("CHECK-RESPONSE", "on response " + response.body().toString())
-//                val responseList = response.body()?.results?.toMutableList()
-//                        booksList = responseList!!
-//                        withContext(Dispatchers.Main) {
-//                               setGridViewAdapter()
-//                        }
-//
-//            }else{
-//                    Log.v("CHECK-RESPONSE", "on failure " + response.message().toString())
-//
-//            }
-//
-//        }
-////            api.getBooks().enqueue(object : Callback<BooksList> {
-////                override fun onResponse(call: Call<BooksList>, response: Response<BooksList>) {
-////                    if (response.isSuccessful) {
-////                        Log.v(
-////                            "CHECK-RESPONSE",
-////                            "on response " + response.body()?.results.toString()
-////                        )
-////                        val responseList = response.body()?.results?.toMutableList()
-////                        booksList = responseList!!
-////                      //  withContext(Dispatchers.Main) {
-////                               setGridViewAdapter()
-////                      //  }
-////                    }
-////                }
-////                override fun onFailure(call: Call<BooksList>, t: Throwable) {
-////                    Log.v("CHECK-RESPONSE", "on failure " + t.message.toString())
-////                }
-////            })
-//
-//     //   }
-//
-//    }
 
 
 

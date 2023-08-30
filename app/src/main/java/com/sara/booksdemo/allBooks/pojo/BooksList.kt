@@ -1,7 +1,7 @@
-package com.sara.booksdemo.pojo
+package com.sara.booksdemo.allBooks.pojo
 
 import com.google.gson.annotations.SerializedName
-import com.sara.booksdemo.database.Book
+import com.sara.booksdemo.allBooks.database.Book
 
 
 data class BooksList(
@@ -26,7 +26,11 @@ data class BooksList(
                 id = it.id,
                 title = it.title,
                 formats = it.formats,
-                image = it.image
+                image = it.image,
+                authors = it.authors,
+                subjects = it.subjects,
+                languages = it.languages,
+                downloadCount = it.downloadCount
             )
         }
     }

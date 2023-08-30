@@ -1,15 +1,15 @@
-package com.sara.booksdemo.database
+package com.sara.booksdemo.allBooks.database
 
-import android.content.Context
 import androidx.room.*
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.sara.booksdemo.allBooks.Converters
 
 
 @Database(
     entities = [Book::class],
-    version = 2,
-  //  autoMigrations = [AutoMigration (from = 1, to = 2)]
+    version = 4,
+    autoMigrations = [AutoMigration (from = 3, to = 4)]
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -24,6 +24,15 @@ val MIGRATION_1_2: Migration = object : Migration(1, 2) {
                 "ADD COLUMN image TEXT"
         )
     }
+
+//    val MIGRATION_2_3: Migration = object : Migration(2, 3) {
+//        override fun migrate(database: SupportSQLiteDatabase) {
+//            database.execSQL(
+//                "ALTER TABLE book " +
+//                        "ADD COLUMN authors TEXT"
+//            )
+//        }
+//    }
 }
 //    private lateinit var INSTANCE: AppDatabase
 //
