@@ -2,6 +2,7 @@ package com.sara.booksdemo.allBooks
 
 import com.sara.booksdemo.App
 import com.sara.booksdemo.R
+import com.sara.booksdemo.bookDetails.RelatedBooksApiInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,21 @@ class AppModule {
                     .build()
 
             return retrofit.create(ApiInterface::class.java)
+
+
+    }
+
+    @Provides
+    @Singleton
+    fun provideRelatedBooksApiInterface(): RelatedBooksApiInterface {
+
+        val baseUrl =  App.getContext().resources.getString(R.string.base_url)
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit.create(RelatedBooksApiInterface::class.java)
 
 
     }

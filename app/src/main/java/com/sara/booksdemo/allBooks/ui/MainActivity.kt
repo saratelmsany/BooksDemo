@@ -14,9 +14,8 @@ import androidx.lifecycle.Observer
 import com.sara.booksdemo.R
 import com.sara.booksdemo.databinding.ActivityMainBinding
 import com.sara.booksdemo.allBooks.pojo.BookItem
-import com.sara.booksdemo.allBooks.ui.BooksAdapter
 import com.sara.booksdemo.allBooks.viewModel.BookViewModel
-import com.sara.booksdemo.bookDetails.DetailsActivity
+import com.sara.booksdemo.bookDetails.ui.DetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

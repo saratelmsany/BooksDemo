@@ -6,6 +6,7 @@
     <string name="title">Title</string>
     <string name="subject">Subject</string>
     <string name="subjects_head_line">Subjects of this book</string>
+    <string name="related_books">Related books</string>
 
 
 </resources>
