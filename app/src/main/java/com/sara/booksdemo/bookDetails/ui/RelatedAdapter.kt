@@ -43,8 +43,8 @@ class RelatedAdapter (
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DetailsActivity::class.java)
-              intent.putExtra("book", books[position])
-              context.startActivity(intent)
+            intent.putExtra("book", books[position])
+            context.startActivity(intent)
         }
     }
 

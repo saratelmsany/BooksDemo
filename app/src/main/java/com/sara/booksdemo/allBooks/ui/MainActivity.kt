@@ -2,16 +2,13 @@ package com.sara.booksdemo.allBooks.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AbsListView
 import android.widget.AdapterView
-import android.widget.GridView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.sara.booksdemo.R
 import com.sara.booksdemo.databinding.ActivityMainBinding
 import com.sara.booksdemo.allBooks.pojo.BookItem
 import com.sara.booksdemo.allBooks.viewModel.BookViewModel
@@ -21,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit  var booksGridView : GridView
     private lateinit var mBinding : ActivityMainBinding
     private  val bookViewModel : BookViewModel by viewModels()
     private var booksAdapter : BooksAdapter? = null
@@ -33,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        booksGridView = findViewById(R.id.books_grid)
 
         bookViewModel.booksList.observe(this,
             {
@@ -65,24 +60,20 @@ class MainActivity : AppCompatActivity() {
     private fun setGridViewAdapter(booksList:List<BookItem>) {
         if (booksAdapter == null) {
             booksAdapter = BooksAdapter(this@MainActivity, booksList)
-            booksGridView.adapter = booksAdapter
-            booksGridView.onItemClickListener =
+            mBinding.booksGrid.adapter = booksAdapter
+            mBinding.booksGrid.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ ->
-
-                    Log.v("bookItem",booksList[position].toString())
                     val intent = Intent(this@MainActivity, DetailsActivity::class.java)
-                    intent.putExtra("book", booksList[position])
                     startActivity(intent)
                 }
         } else {
-            Log.v("data changed", booksList.size.toString())
             booksAdapter!!.changeModelList(booksList)
           //  booksGridView.smoothScrollByOffset(1)
         }
     }
 
     private  fun pagination(){
-        booksGridView.setOnScrollListener(object : AbsListView.OnScrollListener {
+        mBinding.booksGrid.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(
                 view: AbsListView?,
                 firstVisibleItem: Int,
@@ -92,11 +83,10 @@ class MainActivity : AppCompatActivity() {
             override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
 
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    val lastVisibleItem = booksGridView.lastVisiblePosition
-                    val totalItemCount = booksGridView.count
+                    val lastVisibleItem = mBinding.booksGrid.lastVisiblePosition
+                    val totalItemCount = mBinding.booksGrid.count
 
                     if (lastVisibleItem + 1 == totalItemCount) {
-                        Log.v("totalItemCount",totalItemCount.toString())
 
                         controlProgressBar()
 

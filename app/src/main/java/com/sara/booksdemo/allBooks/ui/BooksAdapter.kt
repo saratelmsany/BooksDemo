@@ -1,7 +1,6 @@
 package com.sara.booksdemo.allBooks.ui
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sara.booksdemo.R
 import com.sara.booksdemo.allBooks.pojo.BookItem
-import dagger.Provides
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
+
 
 class BooksAdapter  constructor (
 

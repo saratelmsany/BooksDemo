@@ -24,26 +24,30 @@ class RelatedBooksViewModel @Inject constructor(
     var booksList = MutableLiveData<List<BookItem>>()
     private var _eventNetworkError = MutableLiveData(false)
 
+    val loading = MutableLiveData<Boolean>()
 
 
 
     fun getRelatedBooks(author: String){
+        loading.value = true
         job = CoroutineScope(Dispatchers.Main+exceptionHandler).launch {
             try {
                 val response = relatedBooksRepository.getRelatedBooks(author)
                 if (response.isSuccessful) {
 
                     var results = response.body()?.results
-                  //  Log.v("NEXTPageRes", response.body()?.results.toString())
 
                     booksList.value = results!!
-                    Log.v("ListTAdded", booksList.value.toString())
                 }
+                loading.value = false
+
             }catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
                 if(booksList.value.isNullOrEmpty()) {
                     _eventNetworkError.value = true
                     errorMessage.value = "book list is empty"
+                    loading.value = false
+
                 }
 
             }
@@ -53,6 +57,7 @@ class RelatedBooksViewModel @Inject constructor(
     private fun onError(message: String) {
         Log.v("onError",message)
         errorMessage.value = message
+        loading.value = false
     }
 
     override fun onCleared() {

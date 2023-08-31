@@ -47,23 +47,14 @@ class BookViewModel @Inject constructor
 
       fun getNextPage(){
         loading.value = true
-        Log.v("loading",loading.value.toString())
-
         job = CoroutineScope(Dispatchers.Main+exceptionHandler).launch {
             try {
                 val response = bookRepository.getBooksFromRemote(nextPage)
                 if (response.isSuccessful) {
-
-                    Log.v("NEXTPageRes", response.body()?.results.toString())
                     var results = response.body()?.results
-
                     booksList.value = booksList.value!!.plus(results!!)
-
-                    Log.v("ListTAdded", booksList.value!!.size.toString())
-
                 }
                     nextPage = response.body()?.next.toString()
-                    Log.v("NEXTz", nextPage)
                     nextPage = nextPage.last().toString()
                     loading.value = false
 
